@@ -1,3 +1,9 @@
+# Visual Studio cache/options directory
+.vs/
+
+# CMake generated build files
+out/
+
 # Prerequisites
 *.d
 
