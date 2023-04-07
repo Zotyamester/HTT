@@ -12,7 +12,7 @@ endif()
 project ("HTT")
 
 # Add source to this project's executable.
-add_executable (HTT "main.cpp" )
+add_executable (HTT "main.cpp"  "DataPlan.h" "Basic.h" "MobiNet.h" "SmsMax.h" "Serializable.h" "Provider.h" "Vector.h" "String.h" "Client.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HTT PROPERTY CXX_STANDARD 20)
