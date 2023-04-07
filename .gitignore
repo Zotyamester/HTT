@@ -1,7 +1,9 @@
-# Visual Studio cache/options directory
+# Visual Studio & CLion cache/options directory
 .vs/
+.idea/
 
 # CMake generated build files
+cmake-build-debug/
 out/
 
 # Prerequisites
