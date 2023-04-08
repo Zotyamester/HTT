@@ -3,13 +3,13 @@
 
 #include "DataPlan.h"
 
-class MobiNet : public DataPlan
-{
+class MobiNet : public DataPlan {
 private:
-	int free_sms_count;
+    int free_sms_count;
 public:
-	int minuteFee(int minutes) const override;
-	int smsFee(int sms_count) const override;
+    MobiNet();
+
+    int smsFee(int sms_count) const override;
 };
 
-#endif // !MOBINET_H
+#endif // MOBINET_H

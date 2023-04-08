@@ -3,11 +3,12 @@
 
 #include "DataPlan.h"
 
-class SmsMax : public DataPlan
-{
+/**
+ * Az SmsMax díjcsomag korlátlan számú, díjmentes SMS küldését teszi lehetővé.
+ */
+class SmsMax : public DataPlan {
 public:
-	int minuteFee(int minutes) const override;
-	int smsFee(int sms_count) const override;
+    SmsMax();
 };
 
-#endif // !SMSMAX_H
+#endif // SMSMAX_H

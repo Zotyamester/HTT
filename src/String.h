@@ -1,42 +1,59 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include "Vector.h"
-#include "Serializable.h"
+#include <cstddef>
+#include <iostream>
 
-namespace utils
-{
+namespace utils {
 
-	class String : private Vector<char>, Serializable
-	{
-	public:
-		String(const char* cs = "");
-		String(char c);
-		String(String const& s);
-		String& operator=(String const& s);
+    /**
+     * Egy dinamikusan növelhető sztringet (másnéven karakterláncot) megvalósító osztály.
+     */
+    class String {
+    private:
+        size_t len;
+        char *data;
+    public:
+        String(const char *cs = "");
 
-		const char* c_str() const;
+        String(char c);
 
-		void write(std::ostream& os) const override;
-		void read(std::istream& is) override;
+        String(String const &rhs);
 
-		using Vector::operator[];
+        ~String() { delete[] data; }
 
-		String operator+(String const& s) const;
-		String operator+(char c) const;
+        String &operator=(String s);
 
-		String& operator+=(String const& s);
-		String& operator+=(char c);
+        char &operator[](size_t idx);
 
-		bool operator==(String const& s);
-		bool operator<(String const& s);
-		bool operator>(String const& s);
-	};
+        char const &operator[](size_t idx) const;
 
-	String operator+(char c, String const& s);
+        String &operator+=(String const &s);
 
-	std::ostream& operator<<(std::ostream& os, String const& s);
-	std::istream& operator>>(std::istream& is, String& s);
+        String &operator+=(char c);
+
+        String operator+(String const &s) const;
+
+        String operator+(char c) const;
+
+        bool operator==(const char* cs) const;
+
+        bool operator<(const char* cs) const;
+
+        bool operator>(const char* cs) const;
+
+        size_t size() const;
+
+        const char *c_str() const;
+
+        operator const char*() const;
+    };
+
+    String operator+(char c, String const &s);
+
+    std::ostream &operator<<(std::ostream &os, String const &s);
+
+    std::istream &operator>>(std::istream &is, String &s);
 
 }
 

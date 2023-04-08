@@ -1,15 +1,38 @@
 #ifndef DATAPLAN_H
 #define DATAPLAN_H
 
-class DataPlan
-{
+/**
+ * A DataPlan egy absztrakt osztály, ami definiálja a díjcsomagok közös tulajdonságait és interfészét.
+ */
+class DataPlan {
 private:
-	int base_price;
+    int base_price;
+    int minute_price;
+    int sms_price;
 public:
-	virtual ~DataPlan() {}
-	int basePrice() const;
-	virtual int minuteFee(int minutes) const;
-	virtual int smsFee(int sms_count) const;
+    DataPlan(int basePrice, int minutePrice, int smsPrice);
+
+    virtual ~DataPlan() {}
+
+    /**
+     * Visszatér a csomag alap díjszabásával.
+     * @return a fizetendő összeg (forintban)
+     */
+    int basePrice() const;
+
+    /**
+     * Kiszámolja egy ügyfél által a percdíjas hívások után fizetendő összeget a díjcsomag alapján.
+     * @param minutes - a híváspercek
+     * @return a fizetendő összeg (forintban)
+     */
+    virtual int minuteFee(int minutes) const;
+
+    /**
+     * Kiszámolja egy ügyfél által elküldött SMS-ek után fizetendő összeget a díjcsomag alapján.
+     * @param sms_count - az SMS-ek száma
+     * @return a fizetendő összeg (forintban)
+     */
+    virtual int smsFee(int sms_count) const;
 };
 
-#endif
+#endif // DATAPLAN_H

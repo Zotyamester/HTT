@@ -3,11 +3,12 @@
 
 #include "DataPlan.h"
 
-class Basic : public DataPlan
-{
+/**
+ * A Basic díjcsomag fix tarifájú SMS-eket és hívásokat nyújt.
+ */
+class Basic : public DataPlan {
 public:
-	int minuteFee(int minutes) const override;
-	int smsFee(int sms_count) const override;
+    Basic();
 };
 
-#endif // !BASIC_H
+#endif // BASIC_H
