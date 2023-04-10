@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     client.write(std::cout);
 
     DataUsage usage("+361234567", 80, 69);
-    std::cout << "Total: " << client.getDataPlan().totalCost(usage);
+    std::cout << "Total: " << client.getDataPlan().totalCost(usage) << std::endl;
 
     return 0;
 }

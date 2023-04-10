@@ -5,8 +5,9 @@
 
 namespace utils {
 
-    String::String(const char *cs) : len(strlen(cs)), data(new char[len + 1]) {
-        strcpy(data, cs);
+    String::String(const char *cs, size_t max_len) : len(min(max_len, strlen(cs))), data(new char[len + 1]) {
+        strncpy(data, cs, len);
+        data[len] = '\0';
     }
 
     String::String(char c) : len(1), data(new char[len + 1]) {

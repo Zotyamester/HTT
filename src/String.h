@@ -14,7 +14,7 @@ namespace utils {
         size_t len;
         char *data;
     public:
-        String(const char *cs = "");
+        String(const char *cs = "", size_t max_len = SIZE_MAX);
 
         String(char c);
 
