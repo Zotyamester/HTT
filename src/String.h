@@ -36,17 +36,23 @@ namespace utils {
 
         String operator+(char c) const;
 
-        bool operator==(const char* cs) const;
+        bool operator==(const char *cs) const;
 
-        bool operator<(const char* cs) const;
+        bool operator!=(const char *cs) const;
 
-        bool operator>(const char* cs) const;
+        bool operator<(const char *cs) const;
+
+        bool operator<=(const char *cs) const;
+
+        bool operator>(const char *cs) const;
+
+        bool operator>=(const char *cs) const;
 
         size_t size() const;
 
         const char *c_str() const;
 
-        operator const char*() const;
+        operator const char *() const;
     };
 
     String operator+(char c, String const &s);
@@ -54,6 +60,8 @@ namespace utils {
     std::ostream &operator<<(std::ostream &os, String const &s);
 
     std::istream &operator>>(std::istream &is, String &s);
+
+    std::istream &getline(std::istream &is, String &s);
 
 }
 

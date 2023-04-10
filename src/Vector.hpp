@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include <cstddef>
+#include <stdexcept>
 #include "utils.hpp"
 
 namespace utils {
@@ -78,14 +79,56 @@ namespace utils {
 
         T &at(size_t idx) {
             if (idx >= n)
-                throw "Out of range.";
+                throw std::runtime_error("Out of range.");
             return data[idx];
         }
 
         T const &at(size_t idx) const {
             if (idx >= n)
-                throw "Out of range.";
+                throw std::runtime_error("Out of range.");
             return data[idx];
+        }
+
+        class iterator {
+        private:
+            T *ptr;
+        public:
+            iterator(T *ptr = nullptr) : ptr(ptr) {}
+
+            T &operator*() {
+                return *ptr;
+            }
+
+            T *operator->() {
+                return ptr;
+            }
+
+            iterator &operator++() {
+                ++ptr;
+                return *this;
+            }
+
+            iterator operator++(int) {
+                iterator original = *this;
+                ++ptr;
+                return original;
+            }
+
+            bool operator==(iterator rhs) {
+                return ptr == rhs.ptr;
+            }
+
+            bool operator!=(iterator rhs) {
+                return ptr != rhs.ptr;
+            }
+        };
+
+        iterator begin() {
+            return iterator(data);
+        }
+
+        iterator end() {
+            return iterator(data + n);
         }
     };
 

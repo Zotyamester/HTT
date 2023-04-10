@@ -7,8 +7,10 @@
  * A Basic díjcsomag fix tarifájú SMS-eket és hívásokat nyújt.
  */
 class Basic : public DataPlan {
-public:
+private:
     Basic();
+
+    friend class DataPlanFactory;
 };
 
 #endif // BASIC_H

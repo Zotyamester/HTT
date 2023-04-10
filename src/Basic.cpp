@@ -1,3 +1,3 @@
 #include "Basic.h"
 
-Basic::Basic() : DataPlan(2000, 32, 20) {}
+Basic::Basic() : DataPlan("Basic", 2000, 32, 20) {}

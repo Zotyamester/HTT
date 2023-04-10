@@ -1,5 +1,5 @@
 #ifndef CLIENT_H
-#define CLIENT_h
+#define CLIENT_H
 
 #include "String.h"
 #include "DataPlan.h"
@@ -14,13 +14,16 @@ private:
 public:
     Client();
 
-    virtual void write(std::ostream &os) const;
+    Client(const utils::String &name, const utils::String &address, const utils::String &phone,
+           const utils::String &plan_name);
 
-    virtual void read(std::istream &is);
+    const utils::String &getPhone() const;
 
-    void setDataPlan(DataPlan *data_plan);
+    const DataPlan &getDataPlan() const;
 
-    DataPlan const *getDataPlan() const;
+    void write(std::ostream &os) const override;
+
+    void read(std::istream &is) override;
 };
 
 #endif // CLIENT_H

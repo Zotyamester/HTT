@@ -7,8 +7,10 @@
  * Az SmsMax díjcsomag korlátlan számú, díjmentes SMS küldését teszi lehetővé.
  */
 class SmsMax : public DataPlan {
-public:
+private:
     SmsMax();
+
+    friend class DataPlanFactory;
 };
 
 #endif // SMSMAX_H

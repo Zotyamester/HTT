@@ -11,21 +11,14 @@
 /**
  * A szolgáltatót reprezentáló osztály tárolja a díjcsomagokat, valamint az ügyfelek adatait és adatforgalmát.
  */
-class Provider : public Serializable {
+class Provider {
 private:
-    utils::Vector<DataPlan *> data_plans;
     utils::Vector<Client> clients;
     utils::Vector<DataUsage> data_usages;
 public:
-    Provider(const char *filename);
+    explicit Provider(std::istream &client_is = std::cin, std::istream &usage_is = std::cin);
 
-    ~Provider();
-
-    void write(std::ostream &os) const override;
-
-    void read(std::istream &is) override;
-
-    void listBills(std::ostream &os);
+    void listBills(std::ostream &os = std::cout);
 };
 
 #endif // PROVIDER_H

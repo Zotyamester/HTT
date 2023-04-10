@@ -5,9 +5,9 @@ namespace utils {
 
     /**
      * Két azonos típusú objektumot megcserélni képes függvény.
-     * @tparam T - típus
-     * @param a - referencia az egyik objektumra
-     * @param b - referencia a másik objektumra
+     * @tparam T típus
+     * @param a referencia az egyik objektumra
+     * @param b referencia a másik objektumra
      */
     template <typename T>
     void swap(T& a, T& b) {

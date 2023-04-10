@@ -8,17 +8,20 @@
  */
 class Serializable {
 public:
+    /**
+     * Virtuális destruktor, hogy a leszármazott objektumokat heterogén kollekcióként lehessen kezelni.
+     */
     virtual ~Serializable() {}
 
     /**
      * Kiírja a megadott folyamra az objektumot.
-     * @param os - kimeneti adatfolyam
+     * @param os kimeneti adatfolyam
      */
     virtual void write(std::ostream &os) const = 0;
 
     /**
      * Beolvassa a megadott folyamról az objektumot.
-     * @param is - bemeneti adatfolyam
+     * @param is bemeneti adatfolyam
      */
     virtual void read(std::istream &is) = 0;
 };

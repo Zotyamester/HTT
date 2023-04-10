@@ -51,8 +51,8 @@
 /// Teszt kezdete. A makró paraméterezése hasonlít a gtest
 /// paraméterezéséhez. Így az itt elkészített testek könnyen átemelhetők
 /// a gtest keretrendszerbe.
-/// @param C - teszteset neve (csak a gtest kompatibilitás miatt van külön neve az eseteknek)
-/// @param N - teszt neve
+/// @param C teszteset neve (csak a gtest kompatibilitás miatt van külön neve az eseteknek)
+/// @param N teszt neve
 #define TEST(C, N) { gtest_lite::test.begin(#C"."#N);
 
 /// Teszteset vége.

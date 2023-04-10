@@ -6,10 +6,13 @@
 class MobiNet : public DataPlan {
 private:
     int free_sms_count;
-public:
+
     MobiNet();
 
-    int smsFee(int sms_count) const override;
+    friend class DataPlanFactory;
+
+public:
+    int smsCost(int sms_count) const override;
 };
 
 #endif // MOBINET_H

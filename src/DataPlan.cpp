@@ -1,16 +1,25 @@
 #include "DataPlan.h"
 
-DataPlan::DataPlan(int basePrice, int minutePrice, int smsPrice) : base_price(basePrice), minute_price(minutePrice),
-                                                                   sms_price(smsPrice) {}
+DataPlan::DataPlan(const utils::String &plan_name, int basePrice, int minutePrice, int smsPrice)
+        : plan_name(plan_name), base_price(basePrice), minute_price(minutePrice),
+          sms_price(smsPrice) {}
 
-int DataPlan::basePrice() const {
+utils::String const &DataPlan::name() const {
+    return plan_name;
+}
+
+int DataPlan::baseCost() const {
     return base_price;
 }
 
-int DataPlan::minuteFee(int minutes) const {
+int DataPlan::minuteCost(int minutes) const {
     return minute_price * minutes;
 }
 
-int DataPlan::smsFee(int sms_count) const {
+int DataPlan::smsCost(int sms_count) const {
     return sms_price * sms_count;
+}
+
+int DataPlan::totalCost(DataUsage const &usage) const {
+    return baseCost() + minuteCost(usage.getMinutes()) + smsCost(usage.getSmsCount());
 }

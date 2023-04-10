@@ -3,14 +3,17 @@
 
 #include "Serializable.h"
 #include "String.h"
-#include "Client.h"
 
 class DataUsage : public Serializable {
 private:
-    Client const* client;
+    utils::String phone;
     int minutes;
     int sms_count;
 public:
+    explicit DataUsage(const utils::String &phone = "", int minutes = 0, int smsCount = 0);
+
+    utils::String const &getPhone() const;
+
     int getMinutes() const;
 
     int getSmsCount() const;
