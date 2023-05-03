@@ -1,12 +1,16 @@
 #include "DataUsage.h"
 
-#include "String.h"
+#include "utils/String.h"
 
-DataUsage::DataUsage(const utils::String &phone, int minutes, int smsCount) : phone(phone), minutes(minutes),
-                                                                              sms_count(smsCount) {}
+DataUsage::DataUsage(const utils::String& phone, const utils::String& date, int minutes, int sms_count, double data)
+        : phone(phone), date(date), minutes(minutes), sms_count(sms_count), data(data) {}
 
-utils::String const &DataUsage::getPhone() const {
+utils::String const& DataUsage::getPhone() const {
     return phone;
+}
+
+const utils::String& DataUsage::getDate() const {
+    return date;
 }
 
 int DataUsage::getMinutes() const {
@@ -17,10 +21,20 @@ int DataUsage::getSmsCount() const {
     return sms_count;
 }
 
-void DataUsage::write(std::ostream &os) const {
-    os << phone << minutes << sms_count << std::endl;
+double DataUsage::getData() const {
+    return data;
 }
 
-void DataUsage::read(std::istream &is) {
-    (is >> phone >> minutes >> sms_count).ignore(1);
+void DataUsage::write(std::ostream& os) const {
+    os << phone << std::endl;
+    os << date << std::endl;
+    os << minutes << ' ' << sms_count << ' ' << data << std::endl;
+}
+
+void DataUsage::read(std::istream& is) {
+    getline(is, phone);
+    getline(is, date);
+    (is >> minutes >> sms_count >> data).ignore(1);
+    if (data < 0)
+        throw std::runtime_error("Mobile data usage must not be negative");
 }

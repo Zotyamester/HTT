@@ -9,19 +9,19 @@ namespace utils {
      * @param a referencia az egyik objektumra
      * @param b referencia a másik objektumra
      */
-    template <typename T>
+    template<typename T>
     void swap(T& a, T& b) {
         T tmp = a;
         a = b;
         b = tmp;
     }
 
-    template <typename T>
+    template<typename T>
     T min(T a, T b) {
         return a < b ? a : b;
     }
 
-    template <typename T>
+    template<typename T>
     T max(T a, T b) {
         return a > b ? a : b;
     }

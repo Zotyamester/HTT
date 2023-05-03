@@ -1,9 +1,9 @@
 #ifndef PROVIDER_H
 #define PROVIDER_H
 
-#include "Vector.hpp"
+#include "utils/Vector.hpp"
 #include "Serializable.h"
-#include "DataPlan.h"
+#include "plan/Plan.h"
 #include "Client.h"
 #include "DataUsage.h"
 #include <iostream>
@@ -14,11 +14,14 @@
 class Provider {
 private:
     utils::Vector<Client> clients;
-    utils::Vector<DataUsage> data_usages;
 public:
-    explicit Provider(std::istream &client_is = std::cin, std::istream &usage_is = std::cin);
+    explicit Provider(std::istream& client_is = std::cin, std::istream& usage_is = std::cin);
 
-    void listBills(std::ostream &os = std::cout);
+    /**
+     * Kilistázza a szolgáltató ügyfeleit a hozzájuk tartozó adathasználat után fizetendő összeggel együtt.
+     * @param os a kimeneti adatfolyam
+     */
+    void createReport(std::ostream& os = std::cout);
 };
 
 #endif // PROVIDER_H

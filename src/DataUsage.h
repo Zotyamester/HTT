@@ -2,25 +2,66 @@
 #define DATAUSAGE_H
 
 #include "Serializable.h"
-#include "String.h"
+#include "utils/String.h"
 
+/**
+ * Egy ügyfél adathasználatát leíró osztály.
+ */
 class DataUsage : public Serializable {
 private:
+    // a telefonszáma az ügyfélnek, akihez az adatok rögzítve lettek
     utils::String phone;
+    // a számlázás hónapja
+    utils::String date;
+    // híváspercek
     int minutes;
+    // SMS-ek száma
     int sms_count;
+    // belföldi adathasználat (MB-ban)
+    double data;
 public:
-    explicit DataUsage(const utils::String &phone = "", int minutes = 0, int smsCount = 0);
+    /**
+     * Az adathasználat részleteit beállító konstruktor.
+     * @param phone a telefonszám
+     * @param minutes a híváspercek
+     * @param sms_count az SMS-ek száma
+     */
+    explicit DataUsage(const utils::String& phone = "", const utils::String& date = "", int minutes = 0,
+                       int sms_count = 0, double data = 0.0);
 
-    utils::String const &getPhone() const;
+    /**
+     * Visszatér az ügyfél telefonszámával.
+     * @return a telefonszám
+     */
+    utils::String const& getPhone() const;
 
+    /**
+     * Visszatér a számlázás hónapjával.
+     * @return a számlázás hónapja
+     */
+    const utils::String& getDate() const;
+
+    /**
+     * Visszatér a híváspercekkel.
+     * @return a híváspercek
+     */
     int getMinutes() const;
 
+    /**
+     * Visszatér az SMS-ek számával.
+     * @return az SMS-ek száma
+     */
     int getSmsCount() const;
 
-    void write(std::ostream &os) const override;
+    /**
+     * Visszatér az adathasználattal.
+     * @return a adathasználat (MB-ban)
+     */
+    double getData() const;
 
-    void read(std::istream &is) override;
+    void write(std::ostream& os) const override;
+
+    void read(std::istream& is) override;
 };
 
 #endif // DATAUSAGE_H
