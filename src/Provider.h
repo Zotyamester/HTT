@@ -22,6 +22,8 @@ public:
      * @param os a kimeneti adatfolyam
      */
     void createReport(std::ostream& os = std::cout);
+
+    void addClient(const Client& client);
 };
 
 #endif // PROVIDER_H

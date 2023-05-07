@@ -61,7 +61,7 @@ namespace utils {
             }
         }
 
-        void push(T item) {
+        void push(const T& item) {
             extend(n + 1);
             data[n++] = item;
         }
@@ -86,7 +86,7 @@ namespace utils {
             return data[idx];
         }
 
-        T const& at(size_t idx) const {
+        const T& at(size_t idx) const {
             if (idx >= n)
                 throw std::runtime_error("Out of range.");
             return data[idx];
@@ -128,15 +128,17 @@ namespace utils {
         };
 
         iterator<T> begin() { return iterator(data); }
+
         iterator<T> end() { return iterator(data + n); }
 
-        template <typename ITEM>
-        using const_iterator = iterator<const ITEM>;
+        template<typename ITEM> using const_iterator = iterator<const ITEM>;
 
         const_iterator<T> begin() const { return const_iterator<T>(data); }
+
         const_iterator<T> end() const { return const_iterator<T>(data + n); }
 
         const_iterator<T> cbegin() const { return const_iterator<T>(data); }
+
         const_iterator<T> cend() const { return const_iterator<T>(data + n); }
     };
 

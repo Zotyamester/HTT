@@ -50,13 +50,13 @@ void Client::writeBilling(std::ostream& os) const {
     for (const DataUsage& usage : usages) {
         os << " - " << usage.getDate() << std::endl;
         int minute_cost = data_plan->minuteCost(usage.getMinutes());
-        os << "   - fee after minutes: " << minute_cost << std::endl;
+        os << "   - fee after minutes: " << minute_cost << " Ft" << std::endl;
         int sms_cost = data_plan->smsCost(usage.getSmsCount());
-        os << "   - fee after SMS: " << sms_cost << std::endl;
+        os << "   - fee after SMS: " << sms_cost << " Ft" << std::endl;
         int data_cost = data_plan->dataCost(usage.getData());
-        os << "   - fee after mobile data: " << data_cost << std::endl;
+        os << "   - fee after mobile data: " << data_cost << " Ft" << std::endl;
         int total = data_plan->baseCost() + minute_cost + sms_cost + data_cost;
-        os << "   - total: " << total << std::endl;
+        os << "   - total: " << total << " Ft" << std::endl;
     }
 }
 

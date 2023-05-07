@@ -30,3 +30,7 @@ void Provider::createReport(std::ostream& os) {
         iter->writeBilling(os);
     }
 }
+
+void Provider::addClient(const Client& client) {
+    clients.push(client);
+}
