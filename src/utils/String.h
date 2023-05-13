@@ -64,6 +64,12 @@ namespace utils {
 
     std::istream& operator>>(std::istream& is, String& s);
 
+    /**
+     * Beolvas egy egész sornyi sztringet
+     * @param is bemeneti adatfolyam
+     * @param s a cél sztring
+     * @return @p is
+     */
     std::istream& getline(std::istream& is, String& s);
 }
 

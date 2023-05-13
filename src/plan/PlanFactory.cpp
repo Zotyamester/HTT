@@ -12,7 +12,7 @@ Plan* PlanFactory::createPlan(const utils::String& plan_name) {
     } else if (plan_name == "AllInMax") {
         return new AllInMax;
     } else {
-        throw std::runtime_error("Expected a base plan");
+        throw std::invalid_argument("Invalid base plan");
     }
 }
 

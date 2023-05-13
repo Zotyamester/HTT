@@ -15,7 +15,7 @@ const utils::String& Client::getPhone() const {
 
 const Plan& Client::getDataPlan() const {
     if (data_plan == nullptr)
-        throw std::runtime_error("No data plan was attached to the client yet.");
+        throw std::logic_error("No data plan was attached to the client yet.");
     return *data_plan;
 }
 
@@ -44,7 +44,7 @@ void Client::read(std::istream& is) {
 
 void Client::writeBilling(std::ostream& os) const {
     if (data_plan == nullptr)
-        throw std::runtime_error("No data plan was attached to the client yet.");
+        throw std::logic_error("No data plan was attached to the client yet.");
 
     writePersonalData(os);
     for (const DataUsage& usage : usages) {

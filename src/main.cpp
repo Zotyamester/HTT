@@ -2,7 +2,9 @@
 #include <fstream>
 #include "Provider.h"
 
-#define ERROR_CODE 1
+enum Error {
+    BAD_USAGE, IO_ERROR, INVALID_DATA
+};
 
 /**
  * Az interaktív főprogram belépési pontja.
@@ -13,7 +15,7 @@
 int main(int argc, char* argv[]) {
     if (argc != 4) {
         std::cout << "Usage: telco [CLIENTS FILE] [DATA USAGES FILE] [REPORT FILE]" << std::endl;
-        return 1;
+        return Error::BAD_USAGE;
     }
 
     try {
@@ -39,7 +41,7 @@ int main(int argc, char* argv[]) {
         provider.createReport(report_file);
     } catch (std::exception& ex) {
         std::cerr << ex.what() << std::endl;
-        return ERROR_CODE;
+        return Error::INVALID_DATA;
     }
 
     return 0;

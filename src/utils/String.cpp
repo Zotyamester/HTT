@@ -27,13 +27,13 @@ namespace utils {
 
     char& String::operator[](size_t idx) {
         if (idx >= len)
-            throw "Out of bounds";
+            throw std::out_of_range("Out of bounds");
         return data[idx];
     }
 
     const char& String::operator[](size_t idx) const {
         if (idx >= len)
-            throw "Out of bounds";
+            throw std::out_of_range("Out of bounds");
         return data[idx];
     }
 
@@ -131,7 +131,7 @@ namespace utils {
 
         char c;
         while (is.get(c) && isspace(c));
-        if (!isspace(c))
+        if (!is.eof())
             do
                 s += c;
             while (is.get(c) && !isspace(c));
@@ -144,10 +144,12 @@ namespace utils {
 
         char c;
         while (is.get(c) && c == '\n');
-        if (!isspace(c))
+        if (!is.eof())
             do
                 s += c;
             while (is.get(c) && c != '\n');
+
+        return is;
     }
 
 }

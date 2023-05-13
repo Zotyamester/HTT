@@ -9,31 +9,50 @@ namespace utils {
 
     /**
      * Általános célú, vektort (másnéven dinamikus tömböt) megvalósító sablon.
-     * @tparam T
+     * @tparam T a tárolandó elemek típusa
      */
     template<typename T>
     class Vector {
     private:
         /**
-         * Alapértelmezett nyújtási szorzó.
+         * Az alapértelmezett nyújtási szorzó.
          */
         static const size_t DEFAULT_EXTENSION_MULTIPLIER = 2;
 
     protected:
-        size_t capacity, n;
+        // a fizikai tároló kapacitása
+        size_t capacity;
+        // a fizikai tároló tényleges mérete
+        size_t n;
+        // a fizikai tároló
         T* data;
     public:
         explicit Vector(size_t n = 0) : capacity(n), n(n), data(new T[capacity]) {}
 
+        /**
+         * Az inicializáló listás konstruktor, mely az adattagok inicializálását delegálja
+         * az egy paraméteres, méret szerint inicializáló konstruktornak, majd átmásolja
+         * az adatokat az inicializáló listáról a fizikai tárolóba.
+         * @param init_list
+         */
         Vector(std::initializer_list<T> init_list) : Vector(init_list.size()) {
             std::copy(init_list.begin(), init_list.end(), data);
         }
 
+        /**
+         * A másoló konstruktor megvalósítása.
+         * @param rhs a másolandó példányra mutató konstans referencia
+         */
         Vector(Vector const& rhs) : capacity(rhs.capacity), n(rhs.n), data(new T[capacity]) {
             for (size_t i = 0; i < n; i++)
                 data[i] = rhs.data[i];
         }
 
+        /**
+         * Az érékadás operátor megvalósítása copy-and-swap módszerrel.
+         * @param vector az érték szerint átvett vektor, amellyel egyenlővé tenni való a példány
+         * @return referencia a példányra
+         */
         Vector& operator=(Vector vector) {
             capacity = vector.capacity;
             n = vector.n;
@@ -42,13 +61,27 @@ namespace utils {
             return *this;
         }
 
+        /**
+         * A destruktor megvalósítása, mely felszabadítja a fizikai tárolót,
+         * és azzal együtt az érték szerint tárolt elemeket.
+         */
         ~Vector() {
             delete[] data;
         }
 
+        /**
+         * Visszaadja a tároló ténylegesen kihasznált méretét.
+         * @return a méret
+         */
         size_t size() const { return n; }
 
-
+        /**
+         * Biztosítja, hogy a vektor mindenképp legyen képes @p min_size sok elem tárolására
+         * (az tároló újraallkolásának mellőzésével).
+         *
+         * A vektor méretét nem növeli, csak a kapacitását (és azzal együtt a fizikai tárolót is), ha szükséges.
+         * @param min_size az igénylendő mennyiség
+         */
         void extend(size_t min_size) {
             if (min_size > capacity) {
                 size_t new_capacity = min_size * DEFAULT_EXTENSION_MULTIPLIER;
@@ -61,43 +94,91 @@ namespace utils {
             }
         }
 
+        /**
+         * Betesz egy elemet a vektorba.
+         * @param item az elem
+         */
         void push(const T& item) {
             extend(n + 1);
             data[n++] = item;
         }
 
+        /**
+         * Kiveszi az utolsó elemet a vektorból.
+         *
+         * Nem ellenőrzi, hogy van-e még benne elem!
+         */
         void pop() {
             for (size_t i = 1; i < n; i++)
                 data[i - 1] = data[i];
             n--;
         }
 
+        /**
+         * Indexelő operátor, mely visszatér a tároló @p idx -edik elemére mutató referenciával.
+         *
+         * Nem hajt végre futási idejű ellenőrzést a túlindexelés elkerülésére!
+         * @param idx index
+         * @return referencia az elemre
+         */
         T& operator[](size_t idx) {
             return data[idx];
         }
 
+        /**
+         * Indexelő operátor a konstans példányra, mely visszatér a tároló @p idx -edik elemére mutató
+         * konstans referenciával.
+         *
+         * Nem hajt végre futási idejű ellenőrzést a túlindexelés elkerülésére!
+         * @param idx index
+         * @return konstans referencia az elemre
+         */
         T const& operator[](size_t idx) const {
             return data[idx];
         }
 
+        /**
+         * Visszatér a tároló @p idx -edik elemére mutató referenciával, amennyiben az létezik.
+         *
+         * Az index helyességének ellenőrzése (boundary-check) biztosított!
+         * Túlindexelés esetén kivételt dob!
+         * @param idx index
+         * @return referencia az elemre
+         * @throw std::out_of_range
+         */
         T& at(size_t idx) {
             if (idx >= n)
-                throw std::runtime_error("Out of range.");
+                throw std::out_of_range("Vector index is out of bounds");
             return data[idx];
         }
 
+        /**
+         * Visszatér a konstans tároló @p idx -edik elemére mutató konstans referenciával, amennyiben az létezik.
+         *
+         * Az index helyességének ellenőrzése (boundary-check) biztosított!
+         * Túlindexelés esetén kivételt dob!
+         * @param idx index
+         * @return konstans referencia az elemre
+         * @throw std::out_of_range
+         */
         const T& at(size_t idx) const {
             if (idx >= n)
-                throw std::runtime_error("Out of range.");
+                throw std::out_of_range("Vector index is out of bounds");
             return data[idx];
         }
 
-        template<typename ITEM>
-        class iterator {
+    private:
+        /**
+         * A bejáró (iterátor) sablonos megvalósítása.
+         * @tparam ITEM a bejárandó elemek típusa, alapértelmezetten a vektor által tárolt elemek @p T típusa
+         */
+        template<typename ITEM = T>
+        class inner_iterator {
         private:
+            // a bejáró mutatója a tároló adott elemére
             ITEM* ptr;
         public:
-            iterator(ITEM* ptr = nullptr) : ptr(ptr) {}
+            explicit inner_iterator(ITEM* ptr = nullptr) : ptr(ptr) {}
 
             ITEM& operator*() {
                 return *ptr;
@@ -107,39 +188,62 @@ namespace utils {
                 return ptr;
             }
 
-            iterator& operator++() {
+            inner_iterator& operator++() {
                 ++ptr;
                 return *this;
             }
 
-            iterator operator++(int) {
-                iterator original = *this;
+            inner_iterator operator++(int) {
+                inner_iterator original = *this;
                 ++ptr;
                 return original;
             }
 
-            bool operator==(iterator rhs) {
+            bool operator==(inner_iterator rhs) {
                 return ptr == rhs.ptr;
             }
 
-            bool operator!=(iterator rhs) {
+            bool operator!=(inner_iterator rhs) {
                 return ptr != rhs.ptr;
             }
         };
 
-        iterator<T> begin() { return iterator(data); }
+    public:
+        /**
+         * A nem konstans példány bejárója, mely a sablonos általános bejáró
+         * egy specializációja @p T típusú elemekre.
+         */
+        using iterator = inner_iterator<T>;
 
-        iterator<T> end() { return iterator(data + n); }
+        /**
+         * Visszatér a tároló kezdetét jelző bejáróval.
+         * @return a kezdő iterátor
+         */
+        iterator begin() { return iterator(data); }
 
-        template<typename ITEM> using const_iterator = iterator<const ITEM>;
+        /**
+         * Visszatér a tároló végét jelző bejáróval.
+         * @return a befejező iterátor
+         */
+        iterator end() { return iterator(data + n); }
 
-        const_iterator<T> begin() const { return const_iterator<T>(data); }
+        /**
+         * A konstans példány bejárója, mely a sablonos általános bejáró
+         * egy specializációja konstans @p T típusú elemekre.
+         */
+        using const_iterator = inner_iterator<const T>;
 
-        const_iterator<T> end() const { return const_iterator<T>(data + n); }
+        /**
+         * Visszatér a konstans tároló kezdetét jelző bejáróval.
+         * @return a kezdő iterátor
+         */
+        const_iterator begin() const { return const_iterator(data); }
 
-        const_iterator<T> cbegin() const { return const_iterator<T>(data); }
-
-        const_iterator<T> cend() const { return const_iterator<T>(data + n); }
+        /**
+         * Visszatér a konstans tároló végét jelző bejáróval.
+         * @return a befejező iterátor
+         */
+        const_iterator end() const { return const_iterator(data + n); }
     };
 
 }
