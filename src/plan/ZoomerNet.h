@@ -3,10 +3,14 @@
 
 #include "Plan.h"
 
+/**
+ * TODO
+ */
 class ZoomerNet : public Plan {
-private:
-    friend class PlanFactory;
 public:
+    /**
+     * Beállítja az ősosztály számlázási startégiáit.
+     */
     ZoomerNet();
 };
 

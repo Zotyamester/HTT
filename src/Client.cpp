@@ -13,33 +13,10 @@ const utils::String& Client::getPhone() const {
     return phone;
 }
 
-const Plan& Client::getDataPlan() const {
-    if (data_plan == nullptr)
-        throw std::logic_error("No data plan was attached to the client yet.");
-    return *data_plan;
-}
-
 void Client::writePersonalData(std::ostream& os) const {
     os << name << std::endl;
     os << address << std::endl;
     os << phone << std::endl;
-}
-
-void Client::write(std::ostream& os) const {
-    writePersonalData(os);
-    if (data_plan != nullptr)
-        os << data_plan->name() << std::endl;
-}
-
-void Client::read(std::istream& is) {
-    getline(is, name);
-    getline(is, address);
-    getline(is, phone);
-
-    utils::String plan_line;
-    getline(is, plan_line);
-    data_plan = PlanFactory::createPlan(plan_line);
-    is.ignore(1);
 }
 
 void Client::writeBilling(std::ostream& os) const {
@@ -61,5 +38,24 @@ void Client::writeBilling(std::ostream& os) const {
 }
 
 void Client::addDataUsage(const DataUsage& usage) {
+    if (usage.getPhone() != phone)
+        throw std::invalid_argument("DataUsage is not related to Client");
     usages.push(usage);
+}
+
+void Client::write(std::ostream& os) const {
+    writePersonalData(os);
+    if (data_plan != nullptr)
+        os << data_plan->name() << std::endl;
+}
+
+void Client::read(std::istream& is) {
+    getline(is, name);
+    getline(is, address);
+    getline(is, phone);
+
+    utils::String plan_line;
+    getline(is, plan_line);
+    data_plan = PlanFactory::createPlan(plan_line);
+    is.ignore(1);
 }

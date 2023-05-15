@@ -4,6 +4,8 @@
 #include "ZoomerNet.h"
 #include "Basic.h"
 
+PlanFactory::PlanFactory() {}
+
 Plan* PlanFactory::createPlan(const utils::String& plan_name) {
     if (plan_name == "Basic") {
         return new Basic;
@@ -12,7 +14,7 @@ Plan* PlanFactory::createPlan(const utils::String& plan_name) {
     } else if (plan_name == "AllInMax") {
         return new AllInMax;
     } else {
-        throw std::invalid_argument("Invalid base plan");
+        throw std::invalid_argument("Invalid plan name");
     }
 }
 

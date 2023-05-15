@@ -1,6 +1,7 @@
 #include "ZoomerNet.h"
 #include "../billing/FixedBilling.hpp"
 #include "../billing/MultiLevelBilling.hpp"
+#include <climits>
 
 ZoomerNet::ZoomerNet() : Plan("ZoomerNet",
                               5990,

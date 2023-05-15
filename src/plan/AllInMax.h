@@ -3,10 +3,14 @@
 
 #include "Plan.h"
 
+/**
+ * TODO
+ */
 class AllInMax : public Plan {
-private:
-    friend class PlanFactory;
 public:
+    /**
+     * Beállítja az ősosztály számlázási startégiáit.
+     */
     AllInMax();
 };
 
