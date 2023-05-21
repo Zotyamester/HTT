@@ -31,31 +31,31 @@ public:
 
     /**
      * Visszatér az ügyfél telefonszámával.
-     * @return a telefonszám
+     * @return telefonszám
      */
     utils::String const& getPhone() const;
 
     /**
      * Visszatér a számlázás hónapjával.
-     * @return a számlázás hónapja
+     * @return számlázás hónapja
      */
     const utils::String& getDate() const;
 
     /**
      * Visszatér a híváspercekkel.
-     * @return a híváspercek
+     * @return híváspercek
      */
     int getMinutes() const;
 
     /**
      * Visszatér az SMS-ek számával.
-     * @return az SMS-ek száma
+     * @return SMS-ek száma
      */
     int getSmsCount() const;
 
     /**
      * Visszatér az adathasználattal.
-     * @return a adathasználat (MB-ban)
+     * @return adathasználat (MB-ban)
      */
     double getData() const;
 

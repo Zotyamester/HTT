@@ -4,7 +4,7 @@
 #include "Plan.h"
 
 /**
- * A Basic díjcsomag fix tarifájú SMS-eket és hívásokat nyújt.
+ * A Basic adatcsomagot megvalósító osztály.
  */
 class Basic : public Plan {
 public:

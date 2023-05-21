@@ -4,7 +4,7 @@
 #include "Plan.h"
 
 /**
- * TODO
+ * A ZoomerNet adatcsomagot megvalósító osztály.
  */
 class ZoomerNet : public Plan {
 public:

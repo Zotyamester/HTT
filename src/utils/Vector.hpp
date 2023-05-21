@@ -109,8 +109,6 @@ namespace utils {
          * Nem ellenőrzi, hogy van-e még benne elem!
          */
         void pop() {
-            for (size_t i = 1; i < n; i++)
-                data[i - 1] = data[i];
             n--;
         }
 
@@ -133,7 +131,7 @@ namespace utils {
          * @param idx index
          * @return konstans referencia az elemre
          */
-        T const& operator[](size_t idx) const {
+        const T& operator[](size_t idx) const {
             return data[idx];
         }
 
@@ -217,13 +215,13 @@ namespace utils {
 
         /**
          * Visszatér a tároló kezdetét jelző bejáróval.
-         * @return a kezdő iterátor
+         * @return kezdő iterátor
          */
         iterator begin() { return iterator(data); }
 
         /**
          * Visszatér a tároló végét jelző bejáróval.
-         * @return a befejező iterátor
+         * @return befejező iterátor
          */
         iterator end() { return iterator(data + n); }
 
@@ -235,13 +233,13 @@ namespace utils {
 
         /**
          * Visszatér a konstans tároló kezdetét jelző bejáróval.
-         * @return a kezdő iterátor
+         * @return kezdő iterátor
          */
         const_iterator begin() const { return const_iterator(data); }
 
         /**
          * Visszatér a konstans tároló végét jelző bejáróval.
-         * @return a befejező iterátor
+         * @return befejező iterátor
          */
         const_iterator end() const { return const_iterator(data + n); }
     };

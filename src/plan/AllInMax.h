@@ -4,7 +4,7 @@
 #include "Plan.h"
 
 /**
- * TODO
+ * Az AllInMax adatcsomagot megvalósító osztály.
  */
 class AllInMax : public Plan {
 public:

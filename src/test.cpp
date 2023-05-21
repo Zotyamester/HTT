@@ -1,186 +1,274 @@
-//#include <iostream>
-//
-//int main() {
-//    using utils::String;
-//    using std::cout;
-//    using std::cin;
-//    using std::endl;
-//    GTINIT(cin);
-//
-//    TEST(Elkeszult1, construct) {
-//      String ures;
-//      if (ures.size() != 0)
-//        FAIL() << "Baj van a string hosszaval" << endl;
-//      else
-//        SUCCEED() << "Hurra! Van egy sztringem, de nem biztos, hogy ures!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult2, emptyStr) {
-//      String ures;
-//      EXPECT_EQ((size_t)0, ures.size()) << "Baj van a string hosszaval" << endl;
-//
-//      /// Ellenőrizzük, hogy üres sztringet ("") kaptunk-e vissza?
-//      EXPECT_STREQ("", ures.c_str()) << "Nem ures sztring jott letre" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult3, fromChr) {
-//      char ch = 'a';
-//      String a(ch);
-//      EXPECT_EQ((size_t)1, a.size()) << "Baj van a string hosszaval" << endl;
-//      EXPECT_STREQ("a", a.c_str()) << "Karakterbol sztring letrehozasa nem sikerult!" << endl;
-//
-//      String b('a');    // konstansból is megy?
-//      EXPECT_STREQ("a", b.c_str()) << "Karakterbol sztring letrehozasa nem sikerult!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult4, FromCstr) {
-//      const char *hello = "Hello sztring";
-//      String a(hello);
-//      EXPECT_EQ(strlen(hello), a.size()) << "Baj van a string hosszaval" << endl;
-//      EXPECT_STREQ(hello, a.c_str()) << "C-sztringbol string letrehozasa nem sikerult!" << endl;
-//
-//      /// Ellenőrizzük, hogy lemásolta-e a sztringet. Nem elég a pointert!
-//      char cpp[] = { 'C', '+', '+', '\0' };
-//      String b(cpp);
-//      cpp[0] = 'X';
-//      EXPECT_STRNE(cpp, b.c_str()) << "FromCstr: le kellett volna masolni a karaktertombot!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult5, ctor) {
-//      const char *hello = "Hello sztring";
-//      String a(hello);
-//      String b = a;
-//      EXPECT_EQ(strlen(hello), b.size()) << "Baj van a string hosszaval!" << endl;
-//      EXPECT_STREQ(hello, b.c_str()) << "Baj van a masolo konstruktorral!" << endl;
-//
-//      /// Ellenőrizzük, hogy lemásolta-e a sztringet. Nem elég a pointert!
-//      if (a.c_str() == b.c_str())     // Ha a két pointer egyezik, akkor nem másolta le az adatot
-//         FAIL()  << "!** ctor: nem elegendo a pointereket lemasolni!" << endl;
-//
-//      EXPECT_STREQ(hello, a.c_str()) << "Masolo kontsr. elromlott a forras!" << endl;
-//      EXPECT_EQ(strlen(hello), a.size()) << "Masolo konstr. alatt elromlott a forras hossza!" << endl;
-//
-//      const String c = a;
-//      String d = c;     // konstansból is megy?
-//      EXPECT_STREQ(hello, d.c_str()) << "Baj van a masolo konstruktorral" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult5, ctor_nullptr) {
-//      String d0;
-//      String ures = d0;     // üres sztringet is le tudja másolni?
-//      EXPECT_EQ((size_t)0, ures.size()) << "Baj van a string hosszaval" << endl;
-//      /// Ellenőrizzük, hogy üres sztringet ("") kaptunk-e vissza?
-//      EXPECT_STREQ("", ures.c_str()) << "Nem ures sztring jott letre" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult6, opAssign) {
-//      const char *hello = "Hello sztring";
-//      String a(hello);
-//      String b("Duma1"), c("Duma2");
-//      EXPECT_STRNE(a.c_str(), b.c_str());
-//      a = a;
-//      EXPECT_EQ(strlen(hello), a.size()) << "Baj van az ertekadassal: a = a hossz" << endl;
-//      EXPECT_STREQ(hello, a.c_str()) << "Baj van az ertekadassal: a = a" << endl;
-//      c = b = a;
-//
-//      /// Ellenőrizzük, hogy lemásolta-e a sztringet. Nem elég a pointert!
-//      if (a.c_str() == b.c_str())     // Ha a két pointer egyezik, akkor nem másolta le az adatot
-//         FAIL()  << "!** op=: nem elegendo a pointereket lemasolni!" << endl;
-//
-//      EXPECT_EQ(strlen(hello), a.size()) << "Ertekedasnal elromlott a forras hossza!" << endl;
-//      EXPECT_STREQ(hello, a.c_str()) << "Ertekadasnal elromlott a forras!" << endl;
-//      EXPECT_EQ(strlen(hello), b.size()) << "Ertekedas: nem jo a hossz!" << endl;
-//      EXPECT_STREQ(hello, b.c_str()) << "Ertekadas nem sikerult!" << endl;
-//      EXPECT_EQ(strlen(hello), c.size()) << "Ertekedas: nem jo a hossz!" << endl;
-//      EXPECT_STREQ(hello, c.c_str()) << "Ertekadas nem sikerult!" << endl;
-//
-//      const String d("Konst.");
-//      c = d;        // konstansból is megy?
-//      EXPECT_EQ(c.size(), c.size()) << "Ertekedas konstansbol: nem jo a hossz!" << endl;
-//      EXPECT_STREQ(d.c_str(), c.c_str()) << "Ertekadas konstansbol nem sikerult!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult6, opAssign_nullptr) {
-//      String d0;
-//      String c = d0;     // üres sztringet is le tudja másolni?
-//      EXPECT_EQ((size_t)0, c.size()) << "Baj van a string hosszaval" << endl;
-//      /// Ellenőrizzük, hogy üres sztringet ("") kaptunk-e vissza?
-//      EXPECT_STREQ("", c.c_str()) << "Nem ures sztring jott letre" << endl;
-//
-//    } ENDM
-//
-//    TEST(Elkeszult7, strPlusStr) {
-//      String a("Hello ");
-//      String b("sztring");
-//      String c;
-//      c = a + b;
-//      EXPECT_STREQ("Hello sztring", c.c_str()) << "Nem sikerult a + String muvelet!" << endl;
-//      EXPECT_STREQ("Hello ", a.c_str()) << "A + muvelet elrontja a bal oldalt?" << endl;
-//      EXPECT_STREQ("sztring", b.c_str()) << "A + muvelet elrontja a jobb oldalt?" << endl;
-//      const String a1 = a, b1 = b;
-//
-//      String c1;
-//      c1 = a1 + b1;          // konstansból is megy?
-//      EXPECT_STREQ("Hello sztring", c1.c_str()) << "Nem sikerult a + String muvelet!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult7, strPlusChr) {
-//      String a("Hello ");
-//      String b;
-//      b = a + 'B';
-//      EXPECT_STREQ("Hello B", b.c_str()) << "Nem sikerult a + char muvelet!" << endl;
-//      EXPECT_STREQ("Hello ", a.c_str()) << "A + muvelet elrontja a bal oldalt?" << endl;
-//
-//      const String a1 = a;
-//      String b1;
-//      b1 = a1 + 'B';          // konstansból is megy?
-//      EXPECT_STREQ("Hello B", b1.c_str()) << "Nem sikerult a + char muvelet!" << endl;
-//      EXPECT_STREQ("Hello ", a1.c_str()) << "A + muvelet elrontja a bal oldalt?" << endl;
-//
-//    } ENDM
-//
-//    TEST(Elkeszult8, chrPlusStr) {
-//      String a("ello");
-//      String b;
-//      char h = 'H';
-//      b = h + a;
-//      EXPECT_STREQ("Hello", b.c_str()) << "Nem sikerult char + Str muvelet!" << endl;
-//      EXPECT_STREQ("ello", a.c_str()) << "A + muvelet elrontja a jobb oldalt?" << endl;
-//
-//      String b1;
-//      b1 = 'H' + a;  // konstanssal is megy?
-//      EXPECT_STREQ("Hello", b.c_str()) << "Nem sikerult char + Str muvelet!" << endl;
-//    } ENDM
-//
-//    TEST(Elkeszult9, index) {
-//      String a("Hello 678");
-//      EXPECT_NO_THROW(a[0]);
-//      EXPECT_NO_THROW(a[7]);
-//      EXPECT_NO_THROW(a[8]);
-//      EXPECT_EQ('7', a[7]);
-//      a[7] = '.';
-//      EXPECT_EQ('.', a[7]);
-//    } ENDM
-//
-//    TEST(Elkeszult10, insert) {
-//      String a("Hello sztring");
-//      std::stringstream ss;
-//      ss << a;
-//      EXPECT_STREQ("Hello sztring", ss.str().c_str());
-//    } ENDM
-//
-//    TEST(Elkeszult11, extract) {
-//      String a("Hello   sztring \n Lajos12");
-//      std::stringstream ss;
-//      ss << a;
-//      String in1, in2, in3;
-//      ss >> in1 >> in2;         // fűzhetőnek kell lenni
-//      while (ss >> in3);        // csak kicsit gonosz a teszt !
-//      EXPECT_STREQ("Hello", in1.c_str());
-//      EXPECT_STREQ("sztring", in2.c_str());
-//      EXPECT_STREQ("Lajos12", in3.c_str());
-//    } ENDM
-//
-//    GTEND(std::cerr);
-//    return 0;
-//}
+#include "test.h"
+
+#include <sstream>
+#include <clocale>
+#include "utils/String.h"
+#include "plan/PlanFactory.h"
+#include "plan/Basic.h"
+#include "plan/ZoomerNet.h"
+#include "plan/AllInMax.h"
+#include "gtest_lite.h"
+#include "Client.h"
+
+void test::run_tests() {
+    using std::cin;
+    using std::cout;
+    using std::cerr;
+    using std::endl;
+
+    TEST(String, creation)
+    {
+        const utils::String empty;
+        EXPECT_EQ((size_t) 0, empty.size());
+        EXPECT_STREQ("", empty);
+
+        const char* c_as_cs = "a";
+        const utils::String fromChr = c_as_cs[0];
+        EXPECT_EQ((size_t) 1, fromChr.size());
+        EXPECT_EQ(c_as_cs[0], fromChr[0]);
+        EXPECT_STREQ(c_as_cs, fromChr);
+
+        char cs[] = "hello";
+        const utils::String fromCs = cs;
+        EXPECT_EQ((size_t) 5, fromCs.size());
+        EXPECT_STREQ(cs, fromCs);
+        cs[0] = 'b';
+        EXPECT_STRNE(cs, fromCs); // nem módosulhat cs módosításától fromCs
+
+        EXPECT_STREQ((const char*) fromCs, fromCs.c_str());
+    }
+    ENDM
+
+    TEST(String, copyAndAssign)
+    {
+        utils::String s1 = "something";
+        utils::String s2 = s1;
+        EXPECT_STREQ(s1, s2);
+        s1[0] = 'x';
+        EXPECT_STRNE(s1, s2); // nem módosulhat s1 módosításától s2
+
+        utils::String s3;
+        s3 = s2;
+        EXPECT_STREQ(s2, s3);
+        s2[0] = 'y';
+        EXPECT_STRNE(s2, s3); // nem módosulhat s2 módosításától s3
+    }
+    ENDM
+
+    TEST(String, concatenation)
+    {
+        utils::String s1 = "C++";
+        utils::String s2 = " is good";
+        utils::String s1_s2 = s1 + s2;
+        EXPECT_STREQ("C++ is good", s1_s2);
+
+        char c = 'C';
+        utils::String c_s2 = c + s2;
+        EXPECT_STREQ("C is good", c_s2);
+
+        utils::String s = "hello";
+        s += ' ';
+        s += "world";
+        EXPECT_STREQ("hello world", s);
+    }
+    ENDM
+
+    TEST(String, comparison)
+    {
+        utils::String s1 = "hehe";
+        utils::String s2 = "haha";
+
+        // tényleg komplementer logikájú-e az == és a !=
+        EXPECT_TRUE(s1 == "hehe");
+        EXPECT_FALSE(s1 != "hehe");
+        EXPECT_TRUE(s1 <= "hehe"); // <= is igaz-e, ha == igaz
+        EXPECT_TRUE(s1 >= "hehe"); // >= is igaz-e, ha == igaz
+
+        EXPECT_TRUE(s1 != "haha");
+        EXPECT_FALSE(s1 == "haha");
+
+        EXPECT_TRUE(s1 == s1);
+        EXPECT_FALSE(s1 != s1);
+
+        EXPECT_TRUE(s1 != s2);
+        EXPECT_FALSE(s1 == s2);
+
+        utils::String apple = "apple";
+        utils::String banana = "banana";
+        EXPECT_TRUE(apple < banana);
+        EXPECT_TRUE(apple <= banana); // <= is igaz-e, ha < igaz
+        EXPECT_TRUE(banana > apple);
+        EXPECT_TRUE(banana >= apple); // >= is igaz-e, ha > igaz
+    }
+    ENDM
+
+    TEST(Vector, creation)
+    {
+        utils::Vector<char> empty;
+        EXPECT_EQ((size_t) 0, empty.size());
+
+        utils::Vector<double> fromSize(7);
+        EXPECT_EQ((size_t) 7, fromSize.size());
+
+        utils::Vector<int> fromList = {1, 2, 3};
+        EXPECT_EQ((size_t) 3, fromList.size());
+        EXPECT_EQ(1, fromList[0]);
+        EXPECT_EQ(2, fromList[1]);
+        EXPECT_EQ(3, fromList[2]);
+    };
+    ENDM
+
+    TEST(Vector, copyAndAssign)
+    {
+        utils::Vector<int> v1 = {1, 2, 3};
+        utils::Vector<int> v2 = v1;
+        utils::Vector<int> v3;
+        v3 = v1;
+        EXPECT_EQ(v1.size(), v2.size());
+        EXPECT_EQ(v1.size(), v3.size());
+        for (size_t i = 0; i < v1.size(); i++) {
+            EXPECT_EQ(v1[i], v2[i]);
+            EXPECT_EQ(v1[i], v3[i]);
+        }
+
+        v1[0] = 69;
+        EXPECT_NE(69, v2[0]);
+        EXPECT_NE(69, v3[0]);
+    }
+    ENDM
+
+    TEST(Vector, indexing)
+    {
+        utils::Vector<double> v = {2.72, 1.41, 3.14};
+        EXPECT_EQ(2.72, v[0]);
+        EXPECT_NO_THROW(v.at(0));
+        EXPECT_EQ(2.72, v.at(0));
+        EXPECT_EQ(1.41, v[1]);
+        EXPECT_NO_THROW(v.at(1));
+        EXPECT_EQ(1.41, v.at(1));
+        EXPECT_EQ(3.14, v[2]);
+        EXPECT_NO_THROW(v.at(2));
+        EXPECT_EQ(3.14, v.at(2));
+
+        EXPECT_NO_THROW(v[3]); // túlindexelésnél a subscript operátor nem dob kivételt
+        EXPECT_THROW(v.at(3), std::out_of_range &); // az at függvény viszont igen
+    }
+    ENDM
+
+    TEST(Vector, pushPopAndExtend)
+    {
+        utils::Vector<char> v;
+        v.push('a');
+        v.push('b');
+        v.push('x');
+        v.pop();
+        v.push('c');
+
+        EXPECT_EQ((size_t) 3, v.size());
+        EXPECT_EQ('c', v[v.size() - 1]);
+        v.pop();
+        EXPECT_EQ('b', v[v.size() - 1]);
+        v.pop();
+        EXPECT_EQ('a', v[v.size() - 1]);
+        v.pop();
+        EXPECT_EQ((size_t) 0, v.size());
+
+        v.extend(10);
+        EXPECT_EQ((size_t) 0, v.size()); // nem növelheti a "benne lévő elemek számát", csak a kapacitást
+    }
+    ENDM
+
+    TEST(Vector, iterators)
+    {
+        utils::Vector<int> v = {1, 2, 3, 4, 5};
+
+        utils::Vector<int>& ref_v = v;
+        for (auto& value : ref_v)
+            ;
+
+        const utils::Vector<int>& cref_v = v;
+        for (const auto& value : cref_v)
+            ;
+
+    }
+    ENDM
+
+    TEST(Plan, creation)
+    {
+        const utils::String names[] = {"Basic", "ZoomerNet", "AllInMax"};
+        const utils::String type_names[] = {typeid(Basic).name(), typeid(ZoomerNet).name(),
+                                            typeid(AllInMax).name()};
+
+        for (size_t i = 0; i < sizeof(names) / sizeof(names[0]); i++) {
+            Plan* plan = nullptr;
+            EXPECT_NO_THROW(plan = PlanFactory::createPlan(names[i]));
+            EXPECT_STREQ(typeid(*plan).name(), type_names[i]);
+            delete plan;
+        }
+
+        Plan* plan = nullptr;
+        EXPECT_THROW(plan = PlanFactory::createPlan("random string"), std::invalid_argument &);
+        delete plan;
+    }
+    ENDM
+
+    TEST(Plan, prices)
+    {
+        Basic basic;
+        ZoomerNet zoomer_net;
+        AllInMax all_in_max;
+        const Plan* plans[] = {&basic, &zoomer_net, &all_in_max};
+        const int base_costs[] = {1990, 5990, 9990};
+        const int fees_for_1_hour[] = {60 * 30, 60 * 15, 0};
+        const int fees_for_69_SMS[] = {69 * 45, 5 * 45 + 10 * 25 + 54 * 5, 0};
+        const int fees_for_1_GB[] = {500 * 5, 0, 0};
+
+        for (size_t i = 0; i < sizeof(plans) / sizeof(plans[0]); i++) {
+            EXPECT_EQ(base_costs[i], plans[i]->baseCost());
+            EXPECT_EQ(fees_for_1_hour[i], plans[i]->minuteCost(60));
+            EXPECT_EQ(fees_for_69_SMS[i], plans[i]->smsCost(69));
+            EXPECT_EQ(fees_for_1_GB[i], plans[i]->dataCost(1000));
+        }
+    }
+    ENDM
+
+    TEST(DataUsage, creation)
+    {
+        const utils::String phone = "+36302401782";
+        const utils::String date = "2023.01.";
+        const int minutes = 32;
+        const int sms_count = 3;
+        const double data = 4320.1;
+
+        DataUsage usage(phone, date, minutes, sms_count, data);
+        EXPECT_EQ(phone, usage.getPhone());
+        EXPECT_EQ(date, usage.getDate());
+        EXPECT_EQ(minutes, usage.getMinutes());
+        EXPECT_EQ(sms_count, usage.getSmsCount());
+        EXPECT_EQ(data, usage.getData());
+    }
+    ENDM
+
+    TEST(Client, creation)
+    {
+        const utils::String phone = "+36302401782";
+
+        Client client("Tmites Aladár", "1117 Budapest, Magyar Tudósok Körútja 2, I épület IE315", phone, "AllInMax",
+                      utils::Vector<DataUsage>(0));
+        EXPECT_EQ(phone, client.getPhone());
+    }
+    ENDM
+
+    TEST(Client, addDataUsage)
+    {
+        Client client("Tmites Aladár", "1117 Budapest, Magyar Tudósok Körútja 2, I épület IE315", "+36302401782",
+                      "AllInMax", utils::Vector<DataUsage>(0));
+
+        DataUsage empty_usage;
+        EXPECT_THROW(client.addDataUsage(empty_usage), std::invalid_argument &);
+
+        DataUsage related_usage("+36302401782", "2023.01.", 32, 3, 4320.1);
+        EXPECT_NO_THROW(client.addDataUsage(related_usage));
+    }
+    ENDM
+}

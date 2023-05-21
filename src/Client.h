@@ -6,6 +6,10 @@
 #include "Serializable.h"
 #include "utils/Vector.hpp"
 
+/**
+ * Egy ügyfelet leíró osztály.
+ * Magában foglalja az ügyfél összes személyes adatát és a havi adathasználatait.
+ */
 class Client : public Serializable {
 private:
     // név

@@ -11,7 +11,7 @@ private:
     /**
      * Priváttá tett konstruktor, hogy ne jöhessen létre példány az osztályból.
      */
-    PlanFactory();
+    PlanFactory() = default;
 public:
     /**
      * Létrehozza dinamikusan a megfelelő adatcsomagot @p plan_name alapján.

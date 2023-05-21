@@ -25,6 +25,22 @@ namespace utils {
         return *this;
     }
 
+    String::~String() {
+        delete[] data;
+    }
+
+    size_t String::size() const {
+        return len;
+    }
+
+    const char* String::c_str() const {
+        return data;
+    }
+
+    String::operator const char*() const {
+        return data;
+    }
+
     char& String::operator[](size_t idx) {
         if (idx >= len)
             throw std::out_of_range("Out of bounds");
@@ -101,20 +117,6 @@ namespace utils {
     bool String::operator>=(const char* cs) const {
         return strcmp(data, cs) >= 0;
     }
-
-    size_t String::size() const {
-        return len;
-    }
-
-    const char* String::c_str() const {
-        return data;
-    }
-
-    String::operator const char*() const {
-        return data;
-    }
-
-    String::~String() { delete[] data; }
 
     String operator+(char c, String const& s) {
         String rs = c;

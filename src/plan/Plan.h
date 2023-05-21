@@ -10,10 +10,15 @@
  */
 class Plan {
 private:
+    // csomag neve
     utils::String plan_name;
+    // alapdíj
     int base_price;
+    // híváspercek számlázási stratégiája
     BillingStrategy<int>* minute_billing;
+    // SMS-ek számlázási stratégiája
     BillingStrategy<int>* sms_billing;
+    // mobil-adathasználat számlázási stratégiája
     BillingStrategy<double>* data_billing;
 protected:
     /**
@@ -30,31 +35,36 @@ public:
     virtual ~Plan();
 
     /**
-     * Visszaadja az csomag nevét.
-     * @return a csomag neve
+     * Visszaadja a csomag nevét.
+     * @return csomag neve
      */
     const utils::String& name() const;
 
     /**
      * Visszatér a csomag alap díjszabásával.
-     * @return a fizetendő összeg (forintban)
+     * @return fizetendő összeg (forintban)
      */
     int baseCost() const;
 
     /**
-     * Kiszámolja egy ügyfél által a percdíjas hívások után fizetendő összeget a díjcsomag alapján.
-     * @param minutes a híváspercek
-     * @return a fizetendő összeg (forintban)
+     * Kiszámolja egy ügyfél által a hívások után fizetendő összeget a díjcsomag alapján.
+     * @param minutes híváspercek
+     * @return fizetendő összeg (forintban)
      */
     int minuteCost(int minutes) const;
 
     /**
      * Kiszámolja egy ügyfél által elküldött SMS-ek után fizetendő összeget a díjcsomag alapján.
-     * @param sms_count az SMS-ek száma
-     * @return a fizetendő összeg (forintban)
+     * @param sms_count SMS-ek száma
+     * @return fizetendő összeg (forintban)
      */
     int smsCost(int sms_count) const;
 
+    /**
+     * Kiszámolja egy ügyfél által az mobil-adathasználat után fizetendő összeget a díjcsomag alapján.
+     * @param sms_count mobil-adathasználat
+     * @return fizetendő összeg (forintban)
+     */
     int dataCost(double data_usage) const;
 };
 

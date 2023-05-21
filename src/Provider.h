@@ -19,10 +19,14 @@ public:
 
     /**
      * Kilistázza a szolgáltató ügyfeleit a hozzájuk tartozó adathasználat után fizetendő összeggel együtt.
-     * @param os a kimeneti adatfolyam
+     * @param os kimeneti adatfolyam
      */
     void createReport(std::ostream& os = std::cout);
 
+    /**
+     * Hozzáad a szolgáltatóhoz egy új ügyfelet.
+     * @param client ügyfél
+     */
     void addClient(const Client& client);
 };
 
