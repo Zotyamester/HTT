@@ -16,9 +16,13 @@ public:
      * Egy szint számlázási paramétereit leíró osztály.
      */
     struct LevelCost {
-        // mekkora adathasználatig érvényes a szint tarifája
+        /**
+         * mekkora adathasználatig érvényes a szint tarifája
+         */
         T usage;
-        // tarifa
+        /**
+         * tarifa
+         */
         int cost;
 
         /**

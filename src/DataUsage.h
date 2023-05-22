@@ -9,22 +9,34 @@
  */
 class DataUsage : public Serializable {
 private:
-    // a telefonszáma az ügyfélnek, akihez az adatok rögzítve lettek
+    /**
+     * az ügyfél telefonszáma, akihez az adatok rögzítve lettek
+     */
     utils::String phone;
-    // a számlázás hónapja
+    /**
+     * a számlázás hónapja
+     */
     utils::String date;
-    // híváspercek
+    /**
+     * híváspercek
+     */
     int minutes;
-    // SMS-ek száma
+    /**
+     * SMS-ek száma
+     */
     int sms_count;
-    // belföldi adathasználat (MB-ban)
+    /**
+     * belföldi adathasználat (MB-ban)
+     */
     double data;
 public:
     /**
      * Az adathasználat részleteit beállító konstruktor.
-     * @param phone a telefonszám
-     * @param minutes a híváspercek
-     * @param sms_count az SMS-ek száma
+     * @param phone az ügyfél telefonszáma, akihez az adatok rögzítve lettek
+     * @param date a számlázás hónapja
+     * @param minutes híváspercek
+     * @param sms_count SMS-ek száma
+     * @param data belföldi adathasználat (MB-ban)
      */
     explicit DataUsage(const utils::String& phone = "", const utils::String& date = "", int minutes = 0,
                        int sms_count = 0, double data = 0.0);

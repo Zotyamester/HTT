@@ -10,15 +10,25 @@
  */
 class Plan {
 private:
-    // csomag neve
+    /**
+     * csomag neve
+     */
     utils::String plan_name;
-    // alapdíj
+    /**
+     * alapdíj
+     */
     int base_price;
-    // híváspercek számlázási stratégiája
+    /**
+     * híváspercek számlázási stratégiája
+     */
     BillingStrategy<int>* minute_billing;
-    // SMS-ek számlázási stratégiája
+    /**
+     * SMS-ek számlázási stratégiája
+     */
     BillingStrategy<int>* sms_billing;
-    // mobil-adathasználat számlázási stratégiája
+    /**
+     * mobil-adathasználat számlázási stratégiája
+     */
     BillingStrategy<double>* data_billing;
 protected:
     /**
@@ -62,7 +72,7 @@ public:
 
     /**
      * Kiszámolja egy ügyfél által az mobil-adathasználat után fizetendő összeget a díjcsomag alapján.
-     * @param sms_count mobil-adathasználat
+     * @param data_usage mobil-adathasználat
      * @return fizetendő összeg (forintban)
      */
     int dataCost(double data_usage) const;

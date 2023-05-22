@@ -12,9 +12,13 @@ namespace utils {
      */
     class String {
     private:
-        // hossz (a lezáró nulla nélkül)
+        /**
+         * hossz (a lezáró nulla nélkül)
+         */
         size_t len;
-        // adattároló
+        /**
+         * adattároló
+         */
         char* data;
     public:
         /**
@@ -43,7 +47,7 @@ namespace utils {
 
         /**
          * Az érékadás operátor megvalósítása copy-and-swap módszerrel.
-         * @param vector az érték szerint átvett sztring, amellyel egyenlővé tenni való a példány
+         * @param s az érték szerint átvett sztring, amellyel egyenlővé tenni való a példány
          * @return referencia a példányra
          */
         String& operator=(String s);
@@ -94,7 +98,7 @@ namespace utils {
 
         /**
          * Láncolható konkatenáló operátor (sztring + karakter).
-         * @param s a példányhoz hozzáfűzendő karakter
+         * @param c a példányhoz hozzáfűzendő karakter
          * @return a példány referenciája
          */
         String& operator+=(char c);
@@ -108,7 +112,7 @@ namespace utils {
 
         /**
          * Új sztringet készítő konkatenáló operátor (sztring + karakter).
-         * @param s a példányhoz hozzáfűzendő karakter
+         * @param c a példányhoz hozzáfűzendő karakter
          * @return új sztring
          */
         String operator+(char c) const;

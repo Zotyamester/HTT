@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 
-#define CPORTA
+//#define CPORTA
 
 #ifndef CPORTA
 #include <fstream>

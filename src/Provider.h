@@ -13,8 +13,17 @@
  */
 class Provider {
 private:
+    /**
+     * szolgáltató ügyfeleinek listája
+     */
     utils::Vector<Client> clients;
 public:
+    /**
+     * A konstruktor beolvassa a @p client_is és a @p usage_is adatfolyamokról a szolgáltató ügyfeleit, és
+     * a hozzájuk tartozó adathasználatokat.
+     * @param client_is ügyfeleket megadó bemeneti adatfolyam
+     * @param usage_is adathasználatokat megadó bemeneti adatfolyam
+     */
     explicit Provider(std::istream& client_is = std::cin, std::istream& usage_is = std::cin);
 
     /**

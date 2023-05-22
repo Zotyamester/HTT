@@ -12,15 +12,25 @@
  */
 class Client : public Serializable {
 private:
-    // név
+    /**
+     * név
+     */
     utils::String name;
-    // cím
+    /**
+     * cím
+     */
     utils::String address;
-    // telefonszám (az ügyfél azonosítója)
+    /**
+     * telefonszám (az ügyfél azonosítója)
+     */
     utils::String phone;
-    // díjcsomag
+    /**
+     * díjcsomag
+     */
     const Plan* data_plan;
-    // havi adathasználatok listája
+    /**
+     * havi adathasználatok listája
+     */
     utils::Vector<DataUsage> usages;
 public:
     /**

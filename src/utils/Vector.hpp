@@ -20,20 +20,31 @@ namespace utils {
         static const size_t DEFAULT_EXTENSION_MULTIPLIER = 2;
 
     protected:
-        // a fizikai tároló kapacitása
+        /**
+         * a fizikai tároló kapacitása
+         */
         size_t capacity;
-        // a fizikai tároló tényleges mérete
+        /**
+         * a fizikai tároló tényleges mérete
+         */
         size_t n;
-        // a fizikai tároló
+        /**
+         * a fizikai tároló
+         */
         T* data;
     public:
+        /**
+         * Az explicit egy paraméteres és egyben alapértelmezett konstruktor egy @p n méretű és egyben kapacitású
+         * vektort inicializál.
+         * @param n méret
+         */
         explicit Vector(size_t n = 0) : capacity(n), n(n), data(new T[capacity]) {}
 
         /**
          * Az inicializáló listás konstruktor, mely az adattagok inicializálását delegálja
          * az egy paraméteres, méret szerint inicializáló konstruktornak, majd átmásolja
          * az adatokat az inicializáló listáról a fizikai tárolóba.
-         * @param init_list
+         * @param init_list inicializáló lista
          */
         Vector(std::initializer_list<T> init_list) : Vector(init_list.size()) {
             std::copy(init_list.begin(), init_list.end(), data);
