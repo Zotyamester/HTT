@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include "utils.hpp"
 
+#include "../memtrace.h"
+
 namespace utils {
 
     /**

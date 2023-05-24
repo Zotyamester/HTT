@@ -8,6 +8,8 @@
 #include "DataUsage.h"
 #include <iostream>
 
+#include "memtrace.h"
+
 /**
  * A szolgáltatót reprezentáló osztály tárolja a díjcsomagokat, valamint az ügyfelek adatait és adatforgalmát.
  */

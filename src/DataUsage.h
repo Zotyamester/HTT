@@ -4,6 +4,8 @@
 #include "Serializable.h"
 #include "utils/String.h"
 
+#include "memtrace.h"
+
 /**
  * Egy ügyfél adathasználatát leíró osztály.
  */

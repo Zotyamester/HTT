@@ -3,6 +3,8 @@
 
 #include "Plan.h"
 
+#include "../memtrace.h"
+
 /**
  * A ZoomerNet adatcsomagot megvalósító osztály.
  */
@@ -12,6 +14,8 @@ public:
      * Beállítja az ősosztály számlázási startégiáit.
      */
     ZoomerNet();
+
+    Plan* clone() const override;
 };
 
 #endif // ZOOMERNET_H

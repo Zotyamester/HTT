@@ -5,6 +5,8 @@
 #include "../DataUsage.h"
 #include "../billing/BillingStrategy.hpp"
 
+#include "../memtrace.h"
+
 /**
  * A Plan egy absztrakt osztály, ami definiálja a díjcsomagok közös tulajdonságait és interfészét.
  */
@@ -39,10 +41,29 @@ protected:
 
 public:
     /**
+     * Másoló konstruktor.
+     * @param plan másolandó adatcsomag
+     */
+    Plan(const Plan& plan);
+
+    /**
+     * Értékadó operátor
+     * @param plan másolandó adatcsomag
+     * @return a példány referenciája
+     */
+    Plan& operator=(const Plan& plan);
+
+    /**
      * Virtuális destruktor, hogy a leszármazott objektumokat heterogén kollekcióként lehessen kezelni.
      * Felszabadítja továbbá a számlázási stratégiákat.
      */
     virtual ~Plan();
+
+    /**
+     * A konkrét adatcsomagot lemásoló függvény.
+     * @return visszatér az adatcsomag egy dinamikusan foglalt másolatával
+     */
+    virtual Plan* clone() const = 0;
 
     /**
      * Visszaadja a csomag nevét.

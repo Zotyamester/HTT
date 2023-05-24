@@ -3,6 +3,8 @@
 
 #include "BillingStrategy.hpp"
 
+#include "../memtrace.h"
+
 /**
  * A fix számlázást megvalósító osztály, mely minden adathasználatot arányosan számláz a tarifa szerint.
  * @tparam T milyen típusú adathasználat utáni számlázást ír le (pl. int, double)
@@ -21,6 +23,10 @@ public:
 
     int cost(T usage) const override {
         return usage * cost_per_unit;
+    }
+
+    BillingStrategy<T>* clone() const override {
+        return new FixedBilling<T>(*this);
     }
 };
 

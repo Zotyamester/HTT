@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Vector.hpp"
 
+#include "../memtrace.h"
+
 namespace utils {
 
     /**

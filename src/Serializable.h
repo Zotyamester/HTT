@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "memtrace.h"
+
 /**
  * Szerializálható (folyamra kírható/folyamról beolvasható) típusok közös interfésze.
  */
@@ -11,7 +13,7 @@ public:
     /**
      * Virtuális destruktor, hogy a leszármazott objektumokat heterogén kollekcióként lehessen kezelni.
      */
-    virtual ~Serializable() {}
+    virtual ~Serializable() = default;
 
     /**
      * Kiírja a megadott folyamra az objektumot.

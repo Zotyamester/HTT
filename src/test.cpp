@@ -7,8 +7,10 @@
 #include "plan/Basic.h"
 #include "plan/ZoomerNet.h"
 #include "plan/AllInMax.h"
-#include "gtest_lite.h"
 #include "Client.h"
+
+#include "gtest_lite.h"
+#include "memtrace.h"
 
 void test::run_tests() {
     using std::cin;
@@ -270,5 +272,6 @@ void test::run_tests() {
         DataUsage related_usage("+36302401782", "2023.01.", 32, 3, 4320.1);
         EXPECT_NO_THROW(client.addDataUsage(related_usage));
     }
+
     ENDM
 }

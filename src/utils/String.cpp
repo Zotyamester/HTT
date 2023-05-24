@@ -3,6 +3,8 @@
 #include <cstring>
 #include <cctype>
 
+#include "../memtrace.h"
+
 namespace utils {
 
     String::String(const char* cs, size_t max_len) : len(min(max_len, strlen(cs))), data(new char[len + 1]) {

@@ -1,7 +1,5 @@
 ﻿#include <iostream>
 
-//#define CPORTA
-
 #ifndef CPORTA
 #include <fstream>
 #include "Provider.h"
@@ -9,15 +7,17 @@
 #include "test.h"
 #endif
 
+#include "memtrace.h"
+
 enum Error {
     BAD_USAGE, RUNTIME_ERROR, INVALID_DATA
 };
 
 /**
  * Az interaktív főprogram belépési pontja.
- * @param argc
- * @param argv
- * @return
+ * @param argc argumentumok száma
+ * @param argv argumentumlista
+ * @return a futás sikerességét jelző kód
  */
 int main(int argc, char* argv[]) {
 

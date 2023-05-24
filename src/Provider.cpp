@@ -1,5 +1,7 @@
 #include "Provider.h"
 
+#include "memtrace.h"
+
 Provider::Provider(std::istream& client_is, std::istream& usage_is) {
     while (!client_is.eof()) {
         Client client;

@@ -3,11 +3,28 @@
 #include <stdexcept>
 #include "plan/PlanFactory.h"
 
+#include "memtrace.h"
+
 Client::Client() : name(), address(), phone(), data_plan(nullptr), usages() {}
 
 Client::Client(const utils::String& name, const utils::String& address, const utils::String& phone,
                const utils::String& plan_name, const utils::Vector<DataUsage>& usages) : name(name), address(address),
                phone(phone), data_plan(PlanFactory::createPlan(plan_name)), usages(usages) {}
+
+Client::Client(const Client& client) : name(client.name), address(client.address),
+        phone(client.phone), data_plan(data_plan->clone()), usages(client.usages) {}
+
+Client& Client::operator=(const Client& client) {
+    if (this != &client) {
+        name = client.name;
+        address = client.address;
+        phone = client.phone;
+        delete data_plan;
+        data_plan = client.data_plan->clone();
+        usages = client.usages;
+    }
+    return *this;
+}
 
 const utils::String& Client::getPhone() const {
     return phone;
@@ -58,4 +75,8 @@ void Client::read(std::istream& is) {
     getline(is, plan_line);
     data_plan = PlanFactory::createPlan(plan_line);
     is.ignore(1);
+}
+
+Client::~Client() {
+    delete data_plan;
 }

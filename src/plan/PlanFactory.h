@@ -3,6 +3,8 @@
 
 #include "Plan.h"
 
+#include "../memtrace.h"
+
 /**
  * Az adatcsomagok létrehozásáért felelős osztály.
  */

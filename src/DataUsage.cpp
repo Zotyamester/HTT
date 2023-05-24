@@ -2,6 +2,8 @@
 
 #include "utils/String.h"
 
+#include "memtrace.h"
+
 DataUsage::DataUsage(const utils::String& phone, const utils::String& date, int minutes, int sms_count, double data)
         : phone(phone), date(date), minutes(minutes), sms_count(sms_count), data(data) {}
 

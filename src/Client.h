@@ -6,6 +6,8 @@
 #include "Serializable.h"
 #include "utils/Vector.hpp"
 
+#include "memtrace.h"
+
 /**
  * Egy ügyfelet leíró osztály.
  * Magában foglalja az ügyfél összes személyes adatát és a havi adathasználatait.
@@ -50,6 +52,24 @@ public:
      */
     Client(const utils::String& name, const utils::String& address, const utils::String& phone,
            const utils::String& plan_name, const utils::Vector<DataUsage>& usages);
+
+    /**
+     * Másoló konstruktor.
+     * @param client másolandó ügyfél
+     */
+    Client(const Client& client);
+
+    /**
+     * Értékadó operátor
+     * @param client másolandó ügyfél
+     * @return a példány referenciája
+     */
+    Client& operator=(const Client& client);
+
+    /**
+     * Destruktor, melynek feladata az adatcsomag felszabadítása.
+     */
+    ~Client();
 
     /**
      * Visszatér a telefonszámmal.

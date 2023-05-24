@@ -3,6 +3,8 @@
 
 #include "BillingStrategy.hpp"
 
+#include "../memtrace.h"
+
 /**
  * A dinamikus számlázást megvalósító osztály, mely adott egységnyi adathasználatot ingyen lehetővé tesz,
  * és csak az afölötti adathasználat után számláz arányosan.
@@ -27,6 +29,10 @@ public:
         if (usage <= free_usage)
             return 0;
         return (usage - free_usage) * cost_per_unit;
+    }
+
+    BillingStrategy<T>* clone() const override {
+        return new DynamicBilling<T>(*this);
     }
 };
 

@@ -4,6 +4,8 @@
 #include <initializer_list>
 #include "BillingStrategy.hpp"
 
+#include "../memtrace.h"
+
 /**
  * A többszintű számlázást megvalósító osztály, mely szintenként más tarifa szerint számláz.
  * @tparam T milyen típusú adathasználat utáni számlázást ír le (pl. int, double)
@@ -54,6 +56,10 @@ public:
             usage -= usage_on_this_level;
         }
         return total;
+    }
+
+    BillingStrategy<T>* clone() const override {
+        return new MultiLevelBilling<T, LEVEL_COUNT>(*this);
     }
 };
 

@@ -3,6 +3,8 @@
 #include "../billing/MultiLevelBilling.hpp"
 #include <climits>
 
+#include "../memtrace.h"
+
 ZoomerNet::ZoomerNet() : Plan("ZoomerNet",
                               5990,
                               new FixedBilling<int>(15),
@@ -10,3 +12,7 @@ ZoomerNet::ZoomerNet() : Plan("ZoomerNet",
                                                             {10,      25},
                                                             {INT_MAX, 5}},
                               new FixedBilling<double>(0)) {}
+
+Plan* ZoomerNet::clone() const {
+    return new ZoomerNet(*this);
+}

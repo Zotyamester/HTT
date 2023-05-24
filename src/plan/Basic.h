@@ -3,6 +3,8 @@
 
 #include "Plan.h"
 
+#include "../memtrace.h"
+
 /**
  * A Basic adatcsomagot megvalósító osztály.
  */
@@ -12,6 +14,8 @@ public:
      * Beállítja az ősosztály számlázási startégiáit.
      */
     Basic();
+
+    Plan* clone() const override;
 };
 
 #endif // BASIC_H

@@ -4,6 +4,8 @@
 #include "ZoomerNet.h"
 #include "Basic.h"
 
+#include "../memtrace.h"
+
 Plan* PlanFactory::createPlan(const utils::String& plan_name) {
     if (plan_name == "Basic") {
         return new Basic;
