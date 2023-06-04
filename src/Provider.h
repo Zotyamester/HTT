@@ -21,7 +21,7 @@ private:
     utils::Vector<Client> clients;
 public:
     /**
-     * A konstruktor beolvassa a @p client_is és a @p usage_is adatfolyamokról a szolgáltató ügyfeleit, és
+     * A konstruktor beolvassa a @p client_is és a @p usage_is adatfolyamokról a szolgáltató ügyfeleit, valamint
      * a hozzájuk tartozó adathasználatokat.
      * @param client_is ügyfeleket megadó bemeneti adatfolyam
      * @param usage_is adathasználatokat megadó bemeneti adatfolyam

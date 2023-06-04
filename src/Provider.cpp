@@ -13,7 +13,7 @@ Provider::Provider(std::istream& client_is, std::istream& usage_is) {
         DataUsage usage;
         usage.read(usage_is);
 
-        for (Client& client : clients) {
+        for (Client& client: clients) {
             if (client.getPhone() == usage.getPhone()) {
                 client.addDataUsage(usage);
                 break;

@@ -9,20 +9,27 @@ Client::Client() : name(), address(), phone(), data_plan(nullptr), usages() {}
 
 Client::Client(const utils::String& name, const utils::String& address, const utils::String& phone,
                const utils::String& plan_name, const utils::Vector<DataUsage>& usages) : name(name), address(address),
-               phone(phone), data_plan(PlanFactory::createPlan(plan_name)), usages(usages) {}
+                                                                                         phone(phone), usages(usages) {
+    data_plan = PlanFactory::createPlan(plan_name); // csak itt inicializálhatjuk úgy, hogy kivételbiztos legyen
+}
 
-Client::Client(const Client& client) : name(client.name), address(client.address),
-        phone(client.phone), data_plan(data_plan->clone()), usages(client.usages) {}
+Client::Client(const Client& client) : name(client.name), address(client.address), phone(client.phone),
+                                       usages(client.usages) {
+    data_plan = client.data_plan != nullptr ? client.data_plan->clone() : nullptr;
+}
 
 Client& Client::operator=(const Client& client) {
     if (this != &client) {
         name = client.name;
         address = client.address;
         phone = client.phone;
-        delete data_plan;
-        data_plan = client.data_plan->clone();
         usages = client.usages;
+
+        Plan* new_plan = client.data_plan != nullptr ? client.data_plan->clone() : nullptr;
+        delete data_plan;
+        data_plan = new_plan;
     }
+
     return *this;
 }
 
@@ -41,7 +48,7 @@ void Client::writeBilling(std::ostream& os) const {
         throw std::logic_error("No data plan was attached to the client yet.");
 
     writePersonalData(os);
-    for (const DataUsage& usage : usages) {
+    for (const DataUsage& usage: usages) {
         os << " - " << usage.getDate() << std::endl;
         int minute_cost = data_plan->minuteCost(usage.getMinutes());
         os << "   - fee after minutes: " << minute_cost << " Ft" << std::endl;
@@ -73,8 +80,11 @@ void Client::read(std::istream& is) {
 
     utils::String plan_line;
     getline(is, plan_line);
-    data_plan = PlanFactory::createPlan(plan_line);
-    is.ignore(1);
+    Plan* new_plan = PlanFactory::createPlan(plan_line);
+    delete data_plan; // ha mégsem egy új ügyfélre lett volna meghívva, felszabadítjuk az eredetit
+    data_plan = new_plan;
+
+    is.ignore(1); // egyetlenegy üres sorral zárul egy ügyfél leírása
 }
 
 Client::~Client() {
