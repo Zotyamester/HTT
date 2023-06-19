@@ -191,11 +191,11 @@ namespace utils {
         public:
             explicit inner_iterator(ITEM* ptr = nullptr) : ptr(ptr) {}
 
-            ITEM& operator*() {
+            ITEM& operator*() const {
                 return *ptr;
             }
 
-            ITEM* operator->() {
+            ITEM* operator->() const {
                 return ptr;
             }
 
@@ -210,11 +210,11 @@ namespace utils {
                 return original;
             }
 
-            bool operator==(inner_iterator rhs) {
+            bool operator==(inner_iterator rhs) const {
                 return ptr == rhs.ptr;
             }
 
-            bool operator!=(inner_iterator rhs) {
+            bool operator!=(inner_iterator rhs) const {
                 return ptr != rhs.ptr;
             }
         };
