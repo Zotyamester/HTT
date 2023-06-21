@@ -1,0 +1,137 @@
+<diagram program="umletino" version="15.1"><zoom_level>14</zoom_level><help_text>/Component/</help_text><element><id>UMLClass</id><coordinates><x>1176</x><y>994</y><w>126</w><h>70</h></coordinates><panel_attributes>ZoomerNet
+--
+--
++ZoomerNet()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1036</x><y>994</y><w>126</w><h>70</h></coordinates><panel_attributes>Basic
+--
+--
++Basic()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1078</x><y>406</y><w>350</w><h>490</h></coordinates><panel_attributes>/Plan/
+--
+-planName: String
+-basePrice: int
+-minute_billing: BillingStrategy*
+-sms_billing: BillingStrategy*
+-data_billing: BillingStrategy*
+--
+#Plan(
+	name: const String&amp;,
+	base_price: int,
+	minute_billing: BillingStrategy*,
+	sms_billing: BillingStrategy*,
+	data_billing: BillingStrategy*
+)
++Plan(const Plan&amp;)
++Plan&amp; operator=(const Plan&amp;)
+/+~Plan()/
+/+clone(): Plan*/
++name(): const String&amp;
++baseCost(): int
++minuteCost(minutes: int): int
++smsCost(sms_count: int): int
++dataCost(data_usage: double): int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1316</x><y>994</y><w>126</w><h>70</h></coordinates><panel_attributes>AllInMax
+--
+--
++AllInMax()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1162</x><y>182</y><w>294</w><h>112</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Serializable
+--
+--
+/+write(os: std::ostream&amp;): void/
+/+read(is: std::istream&amp;): void/</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1246</x><y>882</y><w>154</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1232</x><y>882</y><w>42</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1092</x><y>882</y><w>168</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;10;10;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>182</x><y>532</y><w>322</w><h>294</h></coordinates><panel_attributes>String
+--
+-len: size_t
+-data: char*
+--
++String(cs: const char*, max_len: size_t)
++String(c: char)
++size(): size_t
++c_str() const: const char*
++operator const char*()
++operator[](idx: size_t): char&amp;
++operator+=(const String&amp;): String&amp;
++operator+=(char): String&amp;
++operator+(const String&amp;): String
++operator+(char): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>182</x><y>840</y><w>336</w><h>350</h></coordinates><panel_attributes>Vector
+template=T
+--
+-capacity: size_t
+-n: size_t
+-data: T*
+--
++Vector(n: size_t = 0)
++Vector(init_list: std::initializer_list)
++size(): size_t
++extend(min_size: size_t): void
++push(const T&amp;): void
++pop(): void
++opeartor[](idx: size_t): T&amp;
++at(idx: size_t): T&amp;
++begin(): iterator
++end(): iterator</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>588</x><y>406</y><w>406</w><h>238</h></coordinates><panel_attributes>Client
+--
+-name: String
+-address: String
+-phone: String
+-plan: Plan*
+-usages: Vector&lt;DataUsage&gt;
+--
++~Client()
+-writePersonalData(os: std::ostream&amp;): void
++writeBilling(os: std::ostream&amp;): void
++addDataUsage(usage: const DataUsage&amp;): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>182</x><y>406</y><w>322</w><h>112</h></coordinates><panel_attributes>Provider
+--
+-clients: Vector&lt;Client&gt;
+--
++createReport(os: std::ostream&amp;): void
++addClient(client: const Client&amp;): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>56</y><w>238</w><h>266</h></coordinates><panel_attributes>DataUsage
+--
+-phone: String
+-date: String
+-minutes: int
+-sms_count: int
+-data: double
+--
++getPhone(): const String&amp;
++getDate(): const String&amp;
++getMinutes(): int
++getSmsCount(): int
++getData(): double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>980</x><y>420</y><w>126</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..1</panel_attributes><additional_attributes>10;10;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>938</x><y>280</y><w>252</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>160;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>420</y><w>126</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..n</panel_attributes><additional_attributes>11;10;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>308</y><w>70</w><h>126</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..n</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>602</x><y>714</y><w>378</w><h>70</h></coordinates><panel_attributes>PlanFactory
+--
+--
++createPlan(plan_name: const String&amp;): Plan*
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>966</x><y>742</y><w>140</w><h>42</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>630</y><w>42</w><h>112</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>308</y><w>210</w><h>126</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>130;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>896</x><y>224</y><w>294</w><h>42</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>190;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1652</x><y>476</y><w>168</w><h>140</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+BillingStrategy
+template=T
+--
+--
+/+cost(usage: T): int/
+/+~BillingStrategy()/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1442</x><y>714</y><w>168</w><h>84</h></coordinates><panel_attributes>FixedBilling
+template=T
+--
+-cost_per_unit: int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1624</x><y>714</y><w>238</w><h>168</h></coordinates><panel_attributes>MultiLevelBilling
+template=T
+--
+{innerclass
+LevelCost
+--
+T usage;
+int cost;
+innerclass}
+-cost_of_levels: LevelCost[]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1876</x><y>714</y><w>154</w><h>84</h></coordinates><panel_attributes>DynamicBilling
+template=T
+--
+-free_usage: T
+-cost_pet_unit: int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1792</x><y>602</y><w>168</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;90</additional_attributes></element><element><id>Relation</id><coordinates><x>1708</x><y>602</y><w>42</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>1512</x><y>602</y><w>168</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>100;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>1414</x><y>546</y><w>266</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=3</panel_attributes><additional_attributes>10;10;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>882</y><w>140</w><h>42</h></coordinates><panel_attributes>lt=(+)-</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>602</x><y>840</y><w>336</w><h>238</h></coordinates><panel_attributes>inner_iterator
+template=ITEM
+--
+ptr: ITEM*
+--
++inner_iterator(ptr: ITEM* = nullptr)
++operator*(): ITEM&amp;
++operator-&gt;(): ITEM*
++operator++(): inner_iterator&amp;
++operator++(int): inner_iterator
++operator==(inner_iterator): bool
++operator!=(inner_iterator): bool</panel_attributes><additional_attributes></additional_attributes></element></diagram>
